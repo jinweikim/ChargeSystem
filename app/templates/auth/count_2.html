@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}统计{% endblock %}
+
+{% block page_content %}
+    <table class="table table-hover">
+    <caption><h3>统计结果如下：</h3></caption>
+    <tbody>
+	<tr>
+	<td>学生姓名</td>
+    <td>学号</td>
+    <td>班级</td>
+    <td>专业</td>
+	<td>费用年度</td>
+    <td>应交学费</td>
+    <td>已交学费</td>
+    <td>应交杂费</td>
+    <td>已交杂费</td>
+    <td>应交住宿费</td>
+    <td>已交住宿费</td>
+    <td>应交总额</td>
+    <td>已交总额</td>
+	</tr>
+    {% if not stu_pay %}
+        <cente><td>暂无数据</td></cente>
+    {% endif %}
+    {% for stu in stu_pay %}
+        {% if stu.total != -1 and stu.student.class_name.id == level %}
+            <tr>
+                <td>{{ stu.student.stu_name }}</td>
+                <td>{{ stu.student.stu_number }}</td>
+                <td>{{ stu.student.class_name.class_name }}</td>
+                <td>{{ stu.student.class_name.discipline.dis_name}}</td>
+                <td>{{ stu.pay_year }}</td>
+                <td>{{ stu.tuition }}</td>
+                <td>{{ stu.actual_tution }}</td>
+                <td>{{ stu.mis }}</td>
+                <td>{{ stu.actual_mis }}</td>
+                <td>{{ stu.accom }}</td>
+                <td>{{ stu.actual_accom }}</td>
+                <td>{{ stu.total }}</td>
+                <td>{{ stu.actual_total }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}
